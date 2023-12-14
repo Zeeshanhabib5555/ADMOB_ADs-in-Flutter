@@ -22,7 +22,7 @@ class _BannerScreenState extends State<BannerScreen> {
     _bannerAd = BannerAd(
       adUnitId: AdmobManager.banner_id,
       request: const AdRequest(),
-      size: AdSize.fullBanner,
+      size: AdSize.largeBanner,
       listener: BannerAdListener(
         //This is used for when Ads is loaded
         onAdLoaded: (Ad ad){
@@ -92,7 +92,10 @@ class _BannerScreenState extends State<BannerScreen> {
                     Navigator.push(context, MaterialPageRoute(builder: (context)=>const InterstitialScreen()));
                   },
                   child: const Text("Open Interstitial Screen",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w700,color: Colors.blue),)
+
               ),
+
+
               SizedBox(height: 20,),
               InkWell
                 (
@@ -101,10 +104,14 @@ class _BannerScreenState extends State<BannerScreen> {
                   },
                   child: const Text("Open Interstitial Reward Screen",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w700,color: Colors.blue),)
               ),
+
             ],
+
           ),
-        )
+        ),
+      bottomNavigationBar: GetBanner(),
     );
+
 
   }
 }
