@@ -1,4 +1,5 @@
 import 'package:admob_ads_flutter/data_admob/admob_manager.dart';
+import 'package:admob_ads_flutter/interstitial_reward_screen.dart';
 import 'package:admob_ads_flutter/interstitial_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -19,29 +20,29 @@ class _BannerScreenState extends State<BannerScreen> {
   //Create Function
   initBannerAd (){
     _bannerAd = BannerAd(
-        adUnitId: AdmobManager.banner_id,
-        request: const AdRequest(),
-        size: AdSize.banner,
-        listener: BannerAdListener(
-          //This is used for when Ads is loaded
-          onAdLoaded: (Ad ad){
+      adUnitId: AdmobManager.banner_id,
+      request: const AdRequest(),
+      size: AdSize.fullBanner,
+      listener: BannerAdListener(
+        //This is used for when Ads is loaded
+        onAdLoaded: (Ad ad){
 
-            setState(() {
-              isBannerAdLoaded = true;
-            });
+          setState(() {
+            isBannerAdLoaded = true;
+          });
 
-          },
-            //This is used for when Ads is failed to load
-          onAdFailedToLoad: (Ad ad, LoadAdError error){
-            ad.dispose();
+        },
+        //This is used for when Ads is failed to load
+        onAdFailedToLoad: (Ad ad, LoadAdError error){
+          ad.dispose();
 
-    },
-          //This is used for when Ads is opened
-          onAdOpened: (Ad ad){
+        },
+        //This is used for when Ads is opened
+        onAdOpened: (Ad ad){
 
-          },
-        ),
-        );
+        },
+      ),
+    );
     _bannerAd.load();
   }
 
@@ -64,8 +65,8 @@ class _BannerScreenState extends State<BannerScreen> {
       color: Colors.amberAccent,
       width: _bannerAd.size.width.toDouble(),
       height: _bannerAd.size.height.toDouble(),
-       child:AdWidget(ad: _bannerAd),
-      
+      child:AdWidget(ad: _bannerAd),
+
 
     )
         : SizedBox(height: height_banner,);
@@ -75,22 +76,34 @@ class _BannerScreenState extends State<BannerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.amber,
-        title: const Center(child: Text('Banner')),
-      ),
-      body: Container(
-        alignment: Alignment.center,
-        width: double.infinity,
-        height: double.infinity,
-        child: InkWell
-          (
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>InterstitialScreen()));
-            },
-            child: Text("Open Interstitial Screen")),
-      ),
-      bottomNavigationBar: GetBanner(),
+        appBar: AppBar(
+          backgroundColor: Colors.amber,
+          title: const Center(child: Text('Banner')),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              InkWell
+                (
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>const InterstitialScreen()));
+                  },
+                  child: const Text("Open Interstitial Screen",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w700,color: Colors.blue),)
+              ),
+              SizedBox(height: 20,),
+              InkWell
+                (
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>const InterstitialRewardScreen()));
+                  },
+                  child: const Text("Open Interstitial Reward Screen",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w700,color: Colors.blue),)
+              ),
+            ],
+          ),
+        )
     );
 
   }
